@@ -2,4 +2,4 @@ bruh = 2
 
 if bruh = 2
   print('bruh')
-Print("will my changed commit?")
+Print("will my changes commit?")
