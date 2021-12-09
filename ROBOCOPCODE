@@ -45,10 +45,10 @@ def start():
 ***** FUNCTIONS FOR ROOMS *****
 
     def start():
-        room_one_type = 1 # fire
+        room_one_type = 1 #Fire
         room_two_type = 2 #Poision
         room_three_type = 3 #Person
-        room_four_type = 4 #Fire
+        room_four_type = 1 #Fire
 
     robot_ctrl.set_mode(rm_define.robot_mode_free)
 
