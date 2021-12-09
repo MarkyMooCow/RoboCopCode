@@ -44,26 +44,11 @@ def start():
 
 ***** FUNCTIONS FOR ROOMS *****
 
-def start():
-    robot_ctrl.set_mode(rm_define.robot_mode_free)
-    gimbal_ctrl.set_rotate_speeed(60)
-    chassis_ctrl.set_rotate_speed(30)
-    chassis_ctrl.move_with_distance(0,1)
-    gimbal_ctrl.yaw_ctrl(250)
-    gimbal_ctrl.recenter()
-    chassis_ctrl.move_with_distance(90,2)
-    gimbal_ctrl.yaw_ctrl(250)
-    gimbal_ctrl.recenter()
-    chassis_ctrl.move_degree_with_distance(90,2)
-    gimbal_ctrl.yaw_ctrl(250)
-    gimbal_ctrl.recenter()
-
-
     def start():
         room_one_type = 1 # fire
         room_two_type = 2 #Poision
-        room_three_type = 3 #
-        room_four_type = 4 #Person
+        room_three_type = 3 #Person
+        room_four_type = 4 #Fire
 
     robot_ctrl.set_mode(rm_define.robot_mode_free)
 
