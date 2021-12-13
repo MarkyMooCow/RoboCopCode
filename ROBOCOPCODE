@@ -89,8 +89,8 @@ def start():
             chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
             #Exit through the door
             chassis_ctrl.move_with_distance(0, 1)
-            return_to_start_of_course(1)
-            move_to_room_from_start(1)
+            return_to_start_of_course()
+            move_to_room_from_start()
         
         elif(room_one_type == 4):
             room_counter()
@@ -132,7 +132,7 @@ def start():
             # End of Hall
             chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
             chassis_ctrl.move_with_distance(0,3.11)
-            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 46)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
             # Start of Hall
             time.sleep(0, 5)
             chassis_ctrl.move_with_distance(0, 5)
@@ -172,10 +172,58 @@ def start():
     
     def move_to_room_from_start(room_number):
         if(room_number == 1):
-            chassis_ctrl.move_with_distance(0, 3.5)
+            chassis_ctrl.rotate_with_degree(180)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 2.7364)
+            # End of the hall
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
+            chassis_ctrl.move_with_distance(0,3.11)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
+            #Start of the next Hall
+            time.sleep(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 1.98)
+            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+
         elif(room_number == 2):
-            #Different movement here to get back to the start from room 2.
+            chassis_ctrl.rotate_with_degree(180)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 2.7364)
+            # End of Hall
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
+            chassis_ctrl.move_with_distance(0,3.11)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 45)
+            #Start of the next Hall
+            time.sleep(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.582)
+            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+
         elif(room_number == 3):
-            #Different movement here to get back to the start from room 3
+            chassis_ctrl.rotate_with_degree(180)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 2.7364)
+            #End of Hall
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 45)
+            chassis_ctrl.move_with_distance(0,3.11)
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 45)
+            #Start of the next Hall
+            time.sleep(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.7196)
+            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+
         elif(room_number == 4):
-            #Different movement here to get back to the start from room 4
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
