@@ -1,20 +1,25 @@
 def start():
+
+    robot_ctrl.set_mode(rm_define.robot_mode_free)
+
     room_one_type = 1 #Fire
     room_two_type = 2 #Poision
     room_three_type = 3 #Person
     room_four_type = 1 #Fire
-    room_count = 0
+    room_number = 0
 
     def room_counter():
-        global room_number += room_number
+        room_number += room_number
 
+    
     gimbal_ctrl.recenter()
+    gimbal_ctrl.set_rotate_speed(60)
     chassis_ctrl.set_trans_speed(1)
     chassis_ctrl.set_rotate_speed(30)
     #Heading towards the first room
     chassis_ctrl.move_with_distance(0, 5)
     chassis_ctrl.move_with_distance(0,2.32)
-    gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise,90)
+    gimbal_ctrl.yaw_ctrl(-190)
 
     if (room_one_type == 1):
         room_count += 1
@@ -46,12 +51,10 @@ def start():
             #Drive through door.
             chassis_ctrl.move_with_distance(0, 1)
             #Rotate towards the wall.
-            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
             scan_for_fire_and_shoot()
             #Rotate towards the door.
-            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
-            #Exit through the door.
-            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
             #Exit through the door.
             chassis_ctrl.move_with_distance(0, 1)
             #Turn to face the hallway to prepare to move towards next room.
@@ -68,19 +71,18 @@ def start():
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 0.4164)
             # Second Door
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
 
-
-        elif(room_one_type == 2):
+        elif(room_one_type == 2): #Poision
             room_counter()
             #Turn to face the hallway to prepare to move towards next room.
-            gimbal_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 4.1656)
             # Third Door
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
 
-        elif(room_one_type == 3):
+        elif(room_one_type == 3): #Person
             room_counter()
             #Drive through door.
             chassis_ctrl.move_with_distance(0, 1)
@@ -89,23 +91,239 @@ def start():
             chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
             #Exit through the door
             chassis_ctrl.move_with_distance(0, 1)
-            return_to_start_of_course()
-            move_to_room_from_start()
-        
-        elif(room_one_type == 4):
+            return_to_start_of_course(1)
+            move_to_room_from_start(1)
+            
+
+    def start():
+        room_one_type = 2 #Fire
+        if (room_one_type == 1):
             room_counter()
             #Drive through door.
-            chassis_ctrl.move_with_distance(0, 1)
-            #Rotate towards the wall.
+            chassis_ctrl.move_with_distance(0, 4)
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive to the Left
+            chassis_ctrl.move_with_distance(0, 4.6)
+            #Scan for fire
+            can_for_fire_and_shoot()   
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 4.6)
+            #Turn towards the door.
             chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            scan_for_fire_and_shoot()
-            #Rotate towards the door.
-            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            #Exit through the door.
-            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            #Exit through the door.
-            chassis_ctrl.move_with_distance(0, 1)
+            #Head through the door.
+            chassis_ctrl.move_with_distance(0, 4)
             #Turn to face the hallway to prepare to move towards next room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Continue to Room 3
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.1656)
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 2): #Poision
+            room_counter()
+            #Turn to face the hallway to prepare to move towards next room.
+            gimbal_ctrl.yaw_ctrl(-190)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.1656)
+            # Third Door
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 3): #Person
+            room_counter()
+            #Drive through door.
+            chassis_ctrl.move_with_distance(0, 4)
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive to the Left
+            chassis_ctrl.move_with_distance(0, 4.6)
+            #Scan for Person
+            scan_for_person_and_play_sound()
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 4.6)
+            #Turn towards the door.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Head through the door.
+            chassis_ctrl.move_with_distance(0, 4)
+            return_to_start_of_course(room_counter())
+            move_to_room_from_start(room_counter())
+
+    def start():
+        room_one_type = 3 #Fire
+        if (room_one_type == 1):
+            room_counter()
+            #Drive through door
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Drive to the right
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn to the left
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive towards the back of the room.
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.move_with_degree(rm_define.clockwise, 90)
+            # Move towards fire.
+            chassis_ctrl.move_with_distance(0, 0.5)
+            #Scan for fire
+            can_for_fire_and_shoot()   
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 0.5)
+            #Turn towards the front of the room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Head towards the front of the room
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Head towards the door.
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn towards the door.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Exit through the door.
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to face the hallway to prepare to move towards next room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Continue to Room 4
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 0.474)
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 2): #Poision
+            room_counter()
+            #Turn to face the hallway to prepare to move towards next room.
+            gimbal_ctrl.yaw_ctrl(-190)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.1656)
+            # Third Door
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 3): #Person
+            room_counter()
+            #Drive through door
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Drive to the right
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn to the left
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive towards the back of the room.
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.move_with_degree(rm_define.clockwise, 90)
+            # Move towards fire.
+            chassis_ctrl.move_with_distance(0, 0.5)
+            #Scan for fire
+            scan_for_person_and_play_sound()  
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 0.5)
+            #Turn towards the front of the room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Head towards the front of the room
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Head towards the door.
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn towards the door.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Exit through the door.
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Return back to start with the person
+            return_to_start_of_course(room_counter())
+            move_to_room_from_start(room_counter())
+
+    def start():
+        room_one_type = 4 #Fire
+        if (room_one_type == 1):
+            room_counter()
+            #Drive through door
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Drive to the right
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn to the left
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive towards the back of the room.
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.move_with_degree(rm_define.clockwise, 90)
+            # Move towards fire.
+            chassis_ctrl.move_with_distance(0, 0.5)
+            #Scan for fire
+            can_for_fire_and_shoot()   
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 0.5)
+            #Turn towards the front of the room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Head towards the front of the room
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Head towards the door.
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn towards the door.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Exit through the door.
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to face the hallway to prepare to move towards next room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Continue to Room 4
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 0.474)
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 2): #Poision
+            room_counter()
+            #Turn to face the hallway to prepare to move towards next room.
+            gimbal_ctrl.yaw_ctrl(-190)
+            chassis_ctrl.move_with_distance(0, 5)
+            chassis_ctrl.move_with_distance(0, 4.1656)
+            # Third Door
+            gimbal_ctrl.yaw_ctrl(-190)
+
+        elif(room_one_type == 3): #Person
+            room_counter()
+            #Drive through door
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Drive to the right
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn to the left
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Drive towards the back of the room.
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.move_with_degree(rm_define.clockwise, 90)
+            # Move towards fire.
+            chassis_ctrl.move_with_distance(0, 0.5)
+            #Scan for fire
+            scan_for_person_and_play_sound()  
+            #Head to leave the room.
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 180)
+            chassis_ctrl.move_with_distance (0, 0.5)
+            #Turn towards the front of the room.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Head towards the front of the room
+            chassis_ctrl.move_with_distance(0, 4.4)
+            #Turn to the right
+            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
+            #Head towards the door.
+            chassis_ctrl.move_with_distance(0, 1.7)
+            #Turn towards the door.
+            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            #Exit through the door.
+            chassis_ctrl.move_with_distance(0, 2.5)
+            #Return back to start with the person
+            return_to_start_of_course(room_counter())
+            move_to_room_from_start(room_counter())     
+
 
     def vision_recognized_people(msg):
         global person_found
@@ -184,7 +402,7 @@ def start():
             time.sleep(0, 5)
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 1.98)
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
 
         elif(room_number == 2):
             chassis_ctrl.rotate_with_degree(180)
@@ -200,7 +418,7 @@ def start():
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 4.582)
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
 
         elif(room_number == 3):
             chassis_ctrl.rotate_with_degree(180)
@@ -217,13 +435,7 @@ def start():
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 5)
             chassis_ctrl.move_with_distance(0, 4.7196)
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            gimbal_ctrl.yaw_ctrl(-190)
 
         elif(room_number == 4):
-            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
-            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
-            gimbal_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            chassis_ctrl.rotate_with_degree(rm_define.clockwise, 90)
-            gimbal_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
-            chassis_ctrl.rotate_with_degree(rm_define.anticlockwise, 90)
+            chassis_ctrl.move_and_rotate(rm_define.anticlockwise, 360)
